@@ -1,0 +1,266 @@
+MP3Enc接口说明
+*InitAll
+函数声明:   int InitAll(void) 
+功能说明: 初始化Record。 
+参数说明:  无。 
+返回值 :0(初始化失败) ,非0(初始化成功). 
+备注 ： 无。 
+*UninitAll 
+函数声明: void UninitAll(void) 
+功能说明: 销毁Record。 
+参数说明:无 
+返回值 :无 
+备注 ：无 
+*GetVer 
+函数声明: void GetVer(char chver[MAX_NAME_BUF]) 
+功能说明: 取得MP3Enc的版本信息。 
+参数说明:
+1. chver : 用于放置版本信息的缓冲区。
+返回值 :无 
+备注 ：无
+*GetDevices 
+函数声明:  int GetDevices(char buf[MAX_DEVICES][MAX_NAME_BUF]) 
+功能说明: 取得当前PC上所有音频设备的名称 
+参数说明:   1.buf : 存储当前PC上所有音频设备的名称的缓冲区。 
+返回值 :为0时读取成功。小于0时，读取时出错。 
+备注 ： 必须在调用InitAll以后才能使用。 
+*GetLineIn 
+函数声明:   int GetLineIn(char buf[MAX_LINEIN][MAX_NAME_BUF], char *device); 
+功能说明: 取得指定音频设备上的所有音频输入设备名称。 
+参数说明:
+1.  buf : 存储指定音频设备上的所有音频输入设备名称 
+2.  device ：GetDevices取得的设备名。 
+返回值 :为0时读取成功。小于0时，读取时出错。 
+备注 ：必须在调用InitAll以后才能使用。 
+*SetInput 
+函数声明:  int SetInput(char *device, char *linein) 
+功能说明:  设置录音的时候使用的输入设备。 
+参数说明:无 
+1. device : GetDevices取得的设备名。 
+2.  linein : GetLineIn取得的音频输入设备名。 
+返回值 :为0时设置成功。小于0时，设置出错。
+备注 ： 必须在调用InitAll以后才能使用。 
+*SetInVol 
+函数声明:  int SetInVol(int nVolume)
+功能说明: 设置音频输入设备的声音输入音量。 缺省时为当前选定的输入设备的音量。 
+参数说明:
+1. nVolume :输入设备的声音值，取值范围为[0,100]
+返回值 : 为0时设置成功。小于0时，设置出错。 
+备注 ： 必须在调用InitAll以后才能使用。 
+*SetCallBack 
+函数声明:  int SetCallBack(void (*enc_data)(char *pBuf, int nSize)) 
+功能说明: 设置声音输入设备录取的声音数据的回调函数，如果不设置，系统将使用缺省
+的回调函数。该函数仅输出WAVE数据。 
+参数说明:
+1. enc_data ： 声音输入设备录取的声音数据的回调函数指针。 
+返回值 :为0时设置成功。小于0时，设置出错。 
+备注 ：无 
+*SetInWavFmt 
+函数声明:int SetInWavFmt(int nchnl, int nSamplesPerSec) 
+功能说明:  设置声音输入设备要采集的声音数据信息。缺省设置为声道数为2，采样为
+44100。 
+参数说明:
+1. nchnl : 声音的声道数，可用的取值为1或2。 
+2.nSamplesPerSec : 声音的采样,允许的取值是{8000, 11025, 22050, 44100}。 
+返回值 : 为0时设置成功。小于0时，设置出错。 
+备注 ：无 
+*SetMP3Inf 
+函数声明: int SetMP3Inf(mp3inf_t*inf) 
+功能说明: 设置录音输出的MP3文件的信息。仅输出的文件为MP3时可以设置。
+参数说明:
+1. inf ：录音输出的MP3文件的信息结构。 
+返回值 :为0时设置成功。小于0时，设置出错。 
+备注 ：无 
+*GetMP3Inf 
+函数声明: int GetMP3Inf(mp3inf_t*inf) 
+功能说明: 读取设置的录音输出MP3文件的信息。
+参数说明:
+1. inf ：录音输出的MP3文件的信息结构。 
+返回值 :为0时设置成功。小于0时，读取出错。  
+备注 ：无 
+*StartRec 
+函数声明:  int StartRec(char *pFile, int type)
+功能说明: 开始录音。
+参数说明:
+1.pFile : 录音输出的文件名称. 
+2. type : 录音输出的文件类型,可用的类型为OUTPUT_FILE_TYPE。 
+返回值 :为0时成功。小于0时，出错。 
+备注 :必须在设置好输入和输出信息以后才可用调用该函数。必须调用的函数是
+InitAll, SetInput, SetInWavFmt,如果输出的文件是MP3，你还可以调用
+SetMP3Inf来改变MP3的输出质量。 
+*PauseRec 
+函数声明:  int PauseRec(void) 
+功能说明: 暂停当前的录音。 
+参数说明:无
+返回值 :为0时成功。小于0时，出错。 
+备注 ：无 
+*StopRec 
+函数声明: int StopRec(void) 
+功能说明: 停止录音
+参数说明:无
+返回值 :为0时成功。小于0时，出错。
+备注 ：无
+*GetRecSec 
+函数声明:  int GetRecSec(void) 
+功能说明: 取得当前已经录音的时间长度 
+参数说明:无 
+返回值 :当前已经录音的时间长度,单位为秒。
+备注 ：无
+* GetRecStatus 
+函数声明:  int GetRecStatus(void)
+功能说明: 取得当前的录音状态
+参数说明:无
+返回值 :当前录音的状态，还回值的类型是RECORD_STATUS。
+备注 ：无
+* GetLevel
+函数声明:  int GetLevel(void)
+功能说明: 取得当声音输入的强度值。
+参数说明:无 
+返回值 :short型的值。取值范围是[0, 32767]。
+备注 ：无
+*PlayFile 
+函数声明:  int PlayFile(char *pFile) 
+功能说明:  打开一个MP3文件并开始播放 
+参数说明:
+1. pFile : 要播放的MP3文件名 
+返回值 : 为0时成功。小于0时，出错。 
+备注 ： 无 
+* Pause 
+函数声明:  int Pause(void) 
+功能说明:  暂停MP3文件的播放。 
+参数说明: 无 
+返回值 : 为0时成功。小于0时，出错。 
+备注 ： 无 
+*Stop 
+函数声明:  void Stop(void) 
+功能说明: 停止MP3文件的播放。 
+参数说明: 无 
+返回值 : 无 
+备注 ： 无 
+*GetDuration 
+函数声明:  int GetDuration(void) 
+功能说明: 取得打开的MP3文件的时间长度 
+参数说明: 无 
+返回值 : 大于等于0时成功。小于0时，出错。 
+备注 ： 调用PlayFile以后才能够返回正确值。 
+*GetPos 
+函数声明:  int GetPos(int bSec) 
+功能说明:  取得当前MP3文件的播放位置。 
+参数说明:
+1. bSec : 小于等于0时返回的是百分比(如：10是10%),大于0时返回的是时间，单
+位是秒（如：60为1分钟）。 
+返回值 : 当前MP3文件的播放位置。 
+备注 ： 无 
+*SeekTo 
+函数声明:  void SeekTo(int nPos, int bSec) 
+功能说明:  跳转当前的播放位置到指定的位置。 
+参数说明:
+1.nPos : 要跳转到的位置。 
+2. bSec : 小于等于0时是百分比,大于0时时间，单位是秒 
+返回值 : 无 
+备注 ： 无
+*GetOutVol 
+函数声明:  int GetOutVol(int *left, int *right) 
+功能说明: 取得当前MP3播放的音量 
+参数说明:
+1.left : 左声道的音量，返回值的范围是[0,100]。 
+2. right: 右声道的音量，返回值的范围是[0,100]。 
+返回值 :为0时成功。小于0时，出错。
+备注 ：无 
+*SetOutVol 
+函数声明:  int SetOutVol(int left, int right) 
+功能说明:  设置当前MP3播放的音量 
+参数说明:
+1. left : 左声道的音量，取值的范围是[0,100]。 
+2. right: 右声道的音量，取值的范围是[0,100]。 
+返回值 : 为0时成功。小于0时，出错。 
+备注 ：无 
+*GetPlayStatus 
+函数声明:  int GetPlayStatus(void) 
+功能说明:  读取当前MP3播放的状态信息。 
+参数说明: 无 
+返回值 : 当前录音的状态，还回值的类型是PLAY_STATUS
+备注  ： 无
+*TurnOnEQ
+函数声明:  int TurnOnEQ(void) 
+功能说明:  打开EQ功能。 
+参数说明: 无 
+返回值 : 为0时成功。小于0时，出错。 
+备注 ： 无 
+*TurnOffEQ
+函数声明:  int TurnOffEQ(void) 
+功能说明:  关闭EQ功能。 
+参数说明: 无 
+返回值 : 为0时成功。小于0时，出错。 
+备注 ： 无 
+*SetEQGain
+函数声明:  int SetEQGain(float preamp, float bands[10]) 
+功能说明:  设置preamp和每个EQ的band值。 
+参数说明: 
+1. preamp: preamp的值，取值的范围是[-20, 20]。 
+2. bands: 1－10 Band的值，取值的范围是[-20, 20]。 
+返回值 : 为0时成功。小于0时，出错。 
+备注 ： 无 
+enum OUTPUT_FILE_TYPE 
+{ 
+OUT_FILE_MP3,  /* 输出的文件类型为MP3 */ 
+OUT_FILE_WAV  /* 输出的文件类型为Wave */ 
+}; 
+enum PLAY_STATUS 
+{ 
+PST_PLAYING,  /* 当前正在播放*/ 
+PST_PAUSE,  /* 当前正在暂停*/ 
+PST_STOP   /* 当前正在停止*/ 
+}; 
+enum RECORD_STATUS 
+{ 
+RECST_RECORD, /* 当前正在录音*/ 
+RECST_PAUSE,  /* 当前正在暂停*/ 
+RECST_STOP /* 当前正在停止*/ 
+}; 
+enum OUT_MODE  
+{ 
+MODE_GEN_STEREO, /* general stereo */ 
+ MODE_JOINT_STEREO,  /* joint stereo */  MODE_MONO, /* mono */ 
+}; 
+enum OUT_QUALITY 
+{ 
+QT_BEST, /* 最好的压缩质量*/ 
+QT_BETTER, /* 较好的压缩质量*/ 
+QT_GEN, /* 一般压缩质量*/  
+QT_WORST, /* 最差的压缩质量*/ 
+}; 
+typedef struct mp3inf_s  
+{ 
+/***********MP3音频信息***********/ 
+ int out_version; /* 压缩的MP3音频版本，0=MPEG-2/2.5 1=MPEG-1 */ 
+int out_channels; /* 输出的MP3文件的声道数, MP3文件的声道数仅用于信息获
+取，设置无效。MP3的声道数由SetInWavFmt设置的声道数决定, 
+缺省时系统定义为2。*/ 
+int out_samplerate;   /* MP3文件的采样，可用的值请参考头文件中的samplerate数组中
+的取值，该参数要根据out_version来设置。*/ 
+int out_dwBitrate; /* mp3文件的比特率,  可用的值请参考头文件中的dwBitrate中
+的取值,该参数要根据out_version来设置。*/ 
+int out_useVBR; /*是否使用可变比特率编码模式(VBR) , 为1时使用，为0时不使
+用。*/ 
+int out_VBR_min; /* VBR编码中的最小比特率限定值（使用VBR模式时有效），该
+参数要根据out_version来设置。*/ 
+int out_VBR_max; /* VBR编码中的最大比特率限定值（使用VBR模式时有效），
+该参数要根据out_version来设置。*/ 
+int out_force_mono; /* 当使用2声道数据输入时是否强制使用mono模式编码*/ 
+ int out_mode; /* MP3文件的模式，参考OUT_MODE描述*/ 
+int out_force_ms; /* 当使用OUT_MODE中的MODE_JOINT_STEREO模式时是否
+强制M/S，为1时强制，为0时不强制。*/ 
+int out_cbr_quality; /* 设置固定比特率编码模式(CBR)下的编码质量，参
+考OUT_QUALITY的描述。*/ 
+int out_vbr_quality; /*可变比特率编码模式(VBR) 下的编码质量,  参
+考OUT_QUALITY的描述。*/ 
+/***********ID3 信息***********/ 
+char artist[MAX_NAME_BUF]; /* 歌手*/ 
+char album[MAX_NAME_BUF]; /* 专辑*/ 
+char title[MAX_NAME_BUF]; /* 标题*/ 
+ char track[MAX_NAME_BUF];  /* 音轨*/ 
+char year[MAX_NAME_BUF]; /* 年代*/ 
+char comment[MAX_NAME_BUF]; /* 注释*/ 
+char genre[MAX_NAME_BUF]; /* 流派*/ 
+}mp3inf_t; 
