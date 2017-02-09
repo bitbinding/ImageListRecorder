@@ -1,0 +1,69 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: ImageListRecorder - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Release/ImageListRecorder.res" /d "NDEBUG" /d "_AFXDLL" "D:\llg\ILRBackup\zh\ImageListRecorder.rc"" 
+Creating temporary file "C:\Users\dell\AppData\Local\Temp\RSPB3.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_AFXDLL" /FR"Release/" /Fo"Release/" /Fd"Release/" /FD /c 
+"D:\llg\ILRBackup\zh\AviToolInput.cpp"
+"D:\llg\ILRBackup\zh\ImageListRecorder.cpp"
+"D:\llg\ILRBackup\zh\ImageListRecorderDoc.cpp"
+"D:\llg\ILRBackup\zh\ImageListRecorderView.cpp"
+"D:\llg\ILRBackup\zh\MainFrm.cpp"
+"D:\llg\ILRBackup\zh\MuxProcessDisplay.cpp"
+"D:\llg\ILRBackup\zh\myMp3Enc.cpp"
+"D:\llg\ILRBackup\zh\RecordSettingDialog.cpp"
+"D:\llg\ILRBackup\zh\SavingImageListDialog.cpp"
+]
+Creating command line "cl.exe @C:\Users\dell\AppData\Local\Temp\RSPB3.tmp" 
+Creating temporary file "C:\Users\dell\AppData\Local\Temp\RSPB4.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_AFXDLL" /FR"Release/" /Fp"Release/ImageListRecorder.pch" /Yc"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"D:\llg\ILRBackup\zh\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\dell\AppData\Local\Temp\RSPB4.tmp" 
+Creating temporary file "C:\Users\dell\AppData\Local\Temp\RSPB5.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:no /pdb:"Release/ImageListRecorder.pdb" /machine:I386 /out:"Release/ImageListRecorder.exe" 
+.\Release\AviToolInput.obj
+.\Release\ImageListRecorder.obj
+.\Release\ImageListRecorderDoc.obj
+.\Release\ImageListRecorderView.obj
+.\Release\MainFrm.obj
+.\Release\MuxProcessDisplay.obj
+.\Release\myMp3Enc.obj
+.\Release\RecordSettingDialog.obj
+.\Release\SavingImageListDialog.obj
+.\Release\StdAfx.obj
+.\Release\ImageListRecorder.res
+]
+Creating command line "link.exe @C:\Users\dell\AppData\Local\Temp\RSPB5.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+AviToolInput.cpp
+ImageListRecorder.cpp
+ImageListRecorderDoc.cpp
+ImageListRecorderView.cpp
+MainFrm.cpp
+MuxProcessDisplay.cpp
+myMp3Enc.cpp
+RecordSettingDialog.cpp
+SavingImageListDialog.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+ImageListRecorder.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
